@@ -26,8 +26,9 @@ func parseArgs() Options {
 
 func checkArgs(options *Options) {
 	algorithms := []string{
-		"select",
 		"bubble",
+		"insert",
+		"select",
 	}
 
 	if options.size <= 1 {

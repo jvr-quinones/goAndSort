@@ -22,10 +22,12 @@ func main() {
 	fmt.Println(strings.ToUpper(options.sorter), "SORT")
 
 	switch options.sorter {
-	case "select":
-		sorted = selectSort(array)
 	case "bubble":
 		sorted = bubbleSort(array)
+	case "insert":
+		sorted = insertSort(array)
+	case "select":
+		sorted = selectSort(array)
 	}
 
 	printArray(sorted)

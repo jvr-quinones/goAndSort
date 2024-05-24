@@ -5,7 +5,8 @@ import (
 )
 
 var (
-	array [1e3]int
+	array  [1e1]int
+	sorted []int
 )
 
 func main() {
@@ -13,6 +14,10 @@ func main() {
 	randomizeArray(array[:])
 	fmt.Println("UNSORTED ARRAY")
 	printArray(array[:])
+
+	sorted = selectAndSort(array[:])
+	fmt.Println("SELECT SORT")
+	printArray(sorted)
 }
 
 func printArray(slice []int) {

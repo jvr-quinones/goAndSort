@@ -1,6 +1,6 @@
 package main
 
-func selectAndSort(slice []int) (sorted []int) {
+func selectSort(slice []int) (sorted []int) {
 	sorted = make([]int, len(slice))
 	copy(sorted, slice)
 

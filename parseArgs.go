@@ -27,6 +27,8 @@ func parseArgs() Options {
 func checkArgs(options *Options) {
 	algorithms := []string{
 		"bubble",
+		"double-select",
+		"exchange",
 		"insert",
 		"select",
 	}

@@ -9,6 +9,7 @@ func insertSort(slice []int) (sorted []int) {
 			if sorted[ind2-1] <= sorted[ind2] {
 				break
 			}
+
 			tempVal := sorted[ind2-1]
 			sorted[ind2-1] = sorted[ind2]
 			sorted[ind2] = tempVal

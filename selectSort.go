@@ -11,6 +11,7 @@ func selectSort(slice []int) (sorted []int) {
 				smallest = ind2
 			}
 		}
+
 		if smallest != ind1 {
 			tempVal := sorted[ind1]
 			sorted[ind1] = sorted[smallest]

@@ -19,9 +19,7 @@ func binaryInsertSort(slice []int) (sorted []int) {
 		}
 
 		for ind2 := ind1; ind2 > posRight; ind2-- {
-			tempVal := sorted[ind2-1]
-			sorted[ind2-1] = sorted[ind2]
-			sorted[ind2] = tempVal
+			SwapElements(sorted, ind2-1, ind2)
 		}
 	}
 

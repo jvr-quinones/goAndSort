@@ -10,9 +10,7 @@ func insertSort(slice []int) (sorted []int) {
 				break
 			}
 
-			tempVal := sorted[ind2-1]
-			sorted[ind2-1] = sorted[ind2]
-			sorted[ind2] = tempVal
+			SwapElements(sorted, ind2-1, ind2)
 		}
 	}
 

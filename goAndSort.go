@@ -62,7 +62,7 @@ func main() {
 func parseArgs() Options {
 	options := Options{}
 	flag.IntVar(&options.size, "size", 1e3, "Sample size")
-	flag.StringVar(&options.sorter, "sorter", "select", "Sorting algorithm")
+	flag.StringVar(&options.sorter, "sorter", "binary-insert", "Sorting algorithm")
 	flag.Parse()
 	options.sorter = strings.ToLower(options.sorter)
 

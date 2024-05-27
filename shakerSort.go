@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func shakerSort(slice []int) (sorted []int) {
 	sorted = make([]int, len(slice))
 	copy(sorted, slice)
@@ -12,15 +10,9 @@ func shakerSort(slice []int) (sorted []int) {
 
 		for ind2 := ind1; ind2 > ind1 || !dirRev; {
 			if !dirRev && sorted[ind2] > sorted[ind2+1] {
-				err := SwapElements(sorted, ind2, ind2+1)
-				if err != nil {
-					fmt.Println(err.Error())
-				}
+				SwapElements(sorted, ind2, ind2+1)
 			} else if dirRev && sorted[ind2] < sorted[ind2-1] {
-				err := SwapElements(sorted, ind2-1, ind2)
-				if err != nil {
-					fmt.Println(err.Error())
-				}
+				SwapElements(sorted, ind2-1, ind2)
 			}
 
 			if dirRev {

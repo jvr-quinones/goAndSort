@@ -1,11 +1,19 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"log"
+	"os"
 	"slices"
 	"strings"
 	"time"
 )
+
+type Options struct {
+	size   int
+	sorter string
+}
 
 var (
 	array  []int
@@ -13,13 +21,13 @@ var (
 )
 
 func main() {
-	fmt.Println("This program will eventually sort an array using different algorithms and sizes")
 	options := parseArgs()
+	fmt.Println("This program will eventually sort an array using different algorithms and sizes")
 
 	array = make([]int, options.size)
-	randomizeArray(array)
+	RandomizeArray(array)
 	fmt.Println("UNSORTED ARRAY")
-	printArray(array)
+	PrintArray(array)
 	fmt.Println(strings.ToUpper(options.sorter), "SORT")
 
 	timeInit := time.Now()
@@ -36,10 +44,12 @@ func main() {
 		sorted = insertSort(array)
 	case "select":
 		sorted = selectSort(array)
+	case "shaker":
+		sorted = shakerSort(array)
 	}
-
 	duration := time.Since(timeInit)
-	printArray(sorted)
+
+	PrintArray(sorted)
 	fmt.Println("Duration:", duration.Microseconds(), "us")
 
 	isSorted := "no"
@@ -49,8 +59,34 @@ func main() {
 	fmt.Println("Is it sorted??", isSorted)
 }
 
-func printArray(slice []int) {
-	for _, val := range slice {
-		fmt.Println(val)
+func parseArgs() Options {
+	options := Options{}
+	flag.IntVar(&options.size, "size", 1e3, "Sample size")
+	flag.StringVar(&options.sorter, "sorter", "select", "Sorting algorithm")
+	flag.Parse()
+	options.sorter = strings.ToLower(options.sorter)
+
+	checkArgs(&options)
+	return options
+}
+
+func checkArgs(options *Options) {
+	algorithms := []string{
+		"binary-insert",
+		"bubble",
+		"double-select",
+		"exchange",
+		"insert",
+		"select",
+		"shaker",
+	}
+
+	logger := log.New(os.Stderr, "goAndSortError: ", 0)
+	if options.size <= 1 {
+		logger.Fatal("Size has to be greater than 1")
+	}
+
+	if !slices.Contains(algorithms, options.sorter) {
+		logger.Fatalf("Unknown algorithm %q", options.sorter)
 	}
 }

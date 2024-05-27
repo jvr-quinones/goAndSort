@@ -24,6 +24,8 @@ func main() {
 
 	timeInit := time.Now()
 	switch options.sorter {
+	case "binary-insert":
+		sorted = binaryInsertSort(array)
 	case "bubble":
 		sorted = bubbleSort(array)
 	case "double-select":

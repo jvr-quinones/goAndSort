@@ -3,21 +3,20 @@ package main
 func doubleSelectSort(slice []int) (sorted []int) {
 	sorted = make([]int, len(slice))
 	copy(sorted, slice)
-
 	length := len(sorted)
-	tempVal := 0
-	ind1 := 0
-	ind2 := length - 1
-	for ind1 < ind2 {
+
+	for ind1 := 0; ind1 < length/2; ind1++ {
 		smallest := ind1
 		largest := ind1
+		tempVal := 0
 
-		for ind3 := ind1 + 1; ind3 <= ind2; ind3++ {
-			if sorted[ind3] < sorted[smallest] {
-				smallest = ind3
+		ind2 := ind1
+		for ; ind2 <= length-ind1-1; ind2++ {
+			if sorted[ind2] < sorted[smallest] {
+				smallest = ind2
 			}
-			if sorted[ind3] > sorted[largest] {
-				largest = ind3
+			if sorted[ind2] > sorted[largest] {
+				largest = ind2
 			}
 		}
 
@@ -27,21 +26,22 @@ func doubleSelectSort(slice []int) (sorted []int) {
 			sorted[smallest] = tempVal
 		}
 
+		ind2-- // Added because the FOR loop does an extra "+1"
 		if largest != ind2 && largest != ind1 {
 			tempVal = sorted[ind2]
 			sorted[ind2] = sorted[largest]
 			sorted[largest] = tempVal
 
-			// This case occurs because the max value used to be in ind1
-			// but it was moved due to the swap with the min
 		} else if largest != ind2 && largest == ind1 {
+			// Since the min swap will always occur first,
+			// you have to follow the new position of the max value.
+			// It only happens when the largest position is
+			// in the same position as ind1
+
 			tempVal = sorted[ind2]
 			sorted[ind2] = sorted[smallest]
 			sorted[smallest] = tempVal
 		}
-
-		ind1++
-		ind2--
 	}
 
 	return

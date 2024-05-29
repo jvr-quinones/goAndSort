@@ -17,10 +17,12 @@ type Options struct {
 
 var (
 	array  []int
+	logger *log.Logger
 	sorted []int
 )
 
 func main() {
+	logger = log.New(os.Stderr, "goAndSortError: ", 0)
 	options := parseArgs()
 	fmt.Println("This program will eventually sort an array using different algorithms and sizes")
 
@@ -42,10 +44,14 @@ func main() {
 		sorted = exchangeSort(array)
 	case "insert":
 		sorted = insertSort(array)
+	case "merge":
+		sorted = mergeSortRecursive(array)
 	case "select":
 		sorted = selectSort(array)
 	case "shaker":
 		sorted = shakerSort(array)
+	default:
+		logger.Fatalf("No handler for sorter %q", options.sorter)
 	}
 	duration := time.Since(timeInit)
 
@@ -77,11 +83,11 @@ func checkArgs(options *Options) {
 		"double-select",
 		"exchange",
 		"insert",
+		"merge",
 		"select",
 		"shaker",
 	}
 
-	logger := log.New(os.Stderr, "goAndSortError: ", 0)
 	if options.size <= 1 {
 		logger.Fatal("Size has to be greater than 1")
 	}

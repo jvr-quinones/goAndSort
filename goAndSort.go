@@ -7,7 +7,6 @@ import (
 	"os"
 	"slices"
 	"strings"
-	"time"
 )
 
 type Options struct {
@@ -32,7 +31,6 @@ func main() {
 	PrintArray(array)
 	fmt.Println(strings.ToUpper(options.sorter), "SORT")
 
-	timeInit := time.Now()
 	switch options.sorter {
 	case "binary-insert":
 		sorted = binaryInsertSort(array)
@@ -44,8 +42,10 @@ func main() {
 		sorted = exchangeSort(array)
 	case "insert":
 		sorted = insertSort(array)
-	case "merge":
+	case "merge-recursive":
 		sorted = mergeSortRecursive(array)
+	case "merge-iterative":
+		sorted = mergeSortIterative(array)
 	case "select":
 		sorted = selectSort(array)
 	case "shaker":
@@ -53,10 +53,7 @@ func main() {
 	default:
 		logger.Fatalf("No handler for sorter %q", options.sorter)
 	}
-	duration := time.Since(timeInit)
-
 	PrintArray(sorted)
-	fmt.Println("Duration:", duration.Microseconds(), "us")
 
 	isSorted := "no"
 	if slices.IsSorted(sorted) {
@@ -83,7 +80,8 @@ func checkArgs(options *Options) {
 		"double-select",
 		"exchange",
 		"insert",
-		"merge",
+		"merge-iterative",
+		"merge-recursive",
 		"select",
 		"shaker",
 	}

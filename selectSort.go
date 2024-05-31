@@ -17,3 +17,30 @@ func selectSort(slice []int) (sorted []int) {
 
 	return sorted
 }
+
+func selectSortStable(slice []int) (sorted []int) {
+	checked := make([]bool, len(slice))
+	sorted = make([]int, len(slice))
+
+	for ind1 := 0; ind1 < len(slice); ind1++ {
+		smallest := 0
+		readyToCheck := false
+
+		for ind2 := 0; ind2 < len(slice); ind2++ {
+			if !readyToCheck && !checked[ind2] {
+				smallest = ind2
+				readyToCheck = true
+				continue
+			}
+
+			if readyToCheck && !checked[ind2] && slice[ind2] < slice[smallest] {
+				smallest = ind2
+			}
+		}
+
+		sorted[ind1] = slice[smallest]
+		checked[smallest] = true
+	}
+
+	return sorted
+}

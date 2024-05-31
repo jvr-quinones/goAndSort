@@ -21,7 +21,7 @@ var (
 )
 
 func main() {
-	logger = log.New(os.Stderr, "goAndSortError: ", 0)
+	logger = log.New(os.Stderr, "goAndSort: ", 0)
 	options := parseArgs()
 	fmt.Println("This program will eventually sort an array using different algorithms and sizes")
 
@@ -29,7 +29,7 @@ func main() {
 	RandomizeArray(array)
 	fmt.Println("UNSORTED ARRAY")
 	PrintArray(array)
-	fmt.Println(strings.ToUpper(options.sorter), "SORT")
+	fmt.Println(strings.ToUpper(strings.ReplaceAll(options.sorter, "-", " ")), "SORT")
 
 	switch options.sorter {
 	case "binary-insert":
@@ -38,6 +38,8 @@ func main() {
 		sorted = bubbleSort(array)
 	case "double-select":
 		sorted = doubleSelectSort(array)
+	case "double-select-stable":
+		sorted = doubleSelectSortStable(array)
 	case "exchange":
 		sorted = exchangeSort(array)
 	case "insert":
@@ -48,6 +50,8 @@ func main() {
 		sorted = mergeSortIterative(array)
 	case "select":
 		sorted = selectSort(array)
+	case "select-stable":
+		sorted = selectSortStable(array)
 	case "shaker":
 		sorted = shakerSort(array)
 	default:
@@ -65,7 +69,7 @@ func main() {
 func parseArgs() Options {
 	options := Options{}
 	flag.IntVar(&options.size, "size", 1e3, "Sample size")
-	flag.StringVar(&options.sorter, "sorter", "binary-insert", "Sorting algorithm")
+	flag.StringVar(&options.sorter, "sorter", "merge-sort-iterative", "Sorting algorithm")
 	flag.Parse()
 	options.sorter = strings.ToLower(options.sorter)
 
@@ -78,11 +82,13 @@ func checkArgs(options *Options) {
 		"binary-insert",
 		"bubble",
 		"double-select",
+		"double-select-stable",
 		"exchange",
 		"insert",
 		"merge-iterative",
 		"merge-recursive",
 		"select",
+		"select-stable",
 		"shaker",
 	}
 

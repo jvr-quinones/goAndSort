@@ -42,6 +42,8 @@ func main() {
 		sorted = doubleSelectSortStable(array)
 	case "exchange":
 		sorted = exchangeSort(array)
+	case "heap":
+		sorted = heapSort(array)
 	case "insert":
 		sorted = insertSort(array)
 	case "merge-recursive":
@@ -69,7 +71,7 @@ func main() {
 func parseArgs() Options {
 	options := Options{}
 	flag.IntVar(&options.size, "size", 1e3, "Sample size")
-	flag.StringVar(&options.sorter, "sorter", "merge-sort-iterative", "Sorting algorithm")
+	flag.StringVar(&options.sorter, "sorter", "merge-iterative", "Sorting algorithm")
 	flag.Parse()
 	options.sorter = strings.ToLower(options.sorter)
 
@@ -84,6 +86,7 @@ func checkArgs(options *Options) {
 		"double-select",
 		"double-select-stable",
 		"exchange",
+		"heap",
 		"insert",
 		"merge-iterative",
 		"merge-recursive",

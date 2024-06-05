@@ -10,9 +10,9 @@ func shakerSort(slice []int) (sorted []int) {
 
 		for ind2 := ind1; ind2 > ind1 || !dirRev; {
 			if !dirRev && sorted[ind2] > sorted[ind2+1] {
-				SwapElements(sorted, ind2, ind2+1)
+				swapElements(sorted, ind2, ind2+1)
 			} else if dirRev && sorted[ind2] < sorted[ind2-1] {
-				SwapElements(sorted, ind2-1, ind2)
+				swapElements(sorted, ind2-1, ind2)
 			}
 
 			if dirRev {

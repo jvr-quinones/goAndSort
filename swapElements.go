@@ -2,7 +2,7 @@ package main
 
 import "errors"
 
-func SwapElements(slice []int, a int, b int) error {
+func swapElements(slice []int, a int, b int) error {
 	length := len(slice)
 
 	if a >= length {

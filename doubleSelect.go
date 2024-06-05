@@ -19,18 +19,18 @@ func doubleSelectSort(slice []int) (sorted []int) {
 			}
 		}
 
-		SwapElements(sorted, ind1, smallest)
+		swapElements(sorted, ind1, smallest)
 
 		ind2-- // Added because the FOR loop does an extra "+1"
 		if largest != ind2 && largest != ind1 {
-			SwapElements(sorted, ind2, largest)
+			swapElements(sorted, ind2, largest)
 
 		} else if largest != ind2 && largest == ind1 {
 			// Since the min swap will always occur first,
 			// you have to follow the new position of the max value.
 			// It only happens when the largest position is
 			// in the same position as ind1
-			SwapElements(sorted, ind2, smallest)
+			swapElements(sorted, ind2, smallest)
 
 		}
 	}

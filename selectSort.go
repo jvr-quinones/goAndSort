@@ -12,7 +12,7 @@ func selectSort(slice []int) (sorted []int) {
 			}
 		}
 
-		SwapElements(sorted, ind1, smallest)
+		swapElements(sorted, ind1, smallest)
 	}
 
 	return sorted

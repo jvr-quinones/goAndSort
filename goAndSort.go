@@ -26,9 +26,9 @@ func main() {
 	fmt.Println("This program will eventually sort an array using different algorithms and sizes")
 
 	array = make([]int, options.size)
-	RandomizeArray(array)
+	randomizeArray(array)
 	fmt.Println("UNSORTED ARRAY")
-	PrintArray(array)
+	printArray(array)
 	fmt.Println(strings.ToUpper(strings.ReplaceAll(options.sorter, "-", " ")), "SORT")
 
 	switch options.sorter {
@@ -59,7 +59,7 @@ func main() {
 	default:
 		logger.Fatalf("No handler for sorter %q", options.sorter)
 	}
-	PrintArray(sorted)
+	printArray(sorted)
 
 	isSorted := "no"
 	if slices.IsSorted(sorted) {

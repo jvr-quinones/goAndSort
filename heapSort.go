@@ -5,16 +5,21 @@ func heapSort(slice []int) (sorted []int) {
 	copy(sorted, slice)
 	ind1 := 0
 
-	for ind1 = len(sorted) - 1; ind1 > 0; ind1-- {
-		parent := (ind1 - 1) / 2
-		if sorted[ind1] > sorted[parent] {
-			swapElements(sorted, ind1, parent)
+	for ind1 = 1; ind1 < len(sorted); ind1++ {
+		for ind2 := ind1; ind2 > 0; {
+			parent := (ind2 - 1) / 2
+			if sorted[ind2] > sorted[parent] {
+				swapElements(sorted, ind2, parent)
+				ind2 = parent
+			} else {
+				break
+			}
 		}
 	}
 
 	for ind1 = len(sorted) - 1; ind1 > 0; ind1-- {
 		swapElements(sorted, 0, ind1)
-		pushValueDown(sorted, 0, ind1-1)
+		pushValueDown(sorted, 0, ind1)
 	}
 
 	if sorted[0] > sorted[1] {

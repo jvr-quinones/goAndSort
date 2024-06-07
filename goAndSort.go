@@ -50,6 +50,8 @@ func main() {
 		sorted = mergeSortRecursive(array)
 	case "merge-iterative":
 		sorted = mergeSortIterative(array)
+	case "quick":
+		sorted = quickSortInPlace(array)
 	case "select":
 		sorted = selectSort(array)
 	case "select-stable":
@@ -90,6 +92,7 @@ func checkArgs(options *Options) {
 		"insert",
 		"merge-iterative",
 		"merge-recursive",
+		"quick",
 		"select",
 		"select-stable",
 		"shaker",

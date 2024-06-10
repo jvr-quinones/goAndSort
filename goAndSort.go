@@ -36,6 +36,8 @@ func main() {
 		sorted = binaryInsertSort(array)
 	case "bubble":
 		sorted = bubbleSort(array)
+	case "counting":
+		sorted = countingSort(array)
 	case "double-select":
 		sorted = doubleSelectSort(array)
 	case "double-select-stable":
@@ -85,6 +87,7 @@ func checkArgs(options *Options) {
 	algorithms := []string{
 		"binary-insert",
 		"bubble",
+		"counting",
 		"double-select",
 		"double-select-stable",
 		"exchange",

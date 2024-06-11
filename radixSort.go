@@ -10,10 +10,6 @@ func radixSortLSD(slice []int, base int) (sorted []int) {
 	maxLogN := 0
 	ind1 := 0
 
-	for ind1 = 0; ind1 < len(digits); ind1++ {
-		digits[ind1] = make([]int, 0)
-	}
-
 	for _, val := range slice {
 		logN := 0
 		if base == 2 {

@@ -15,17 +15,17 @@ type Options struct {
 }
 
 var (
-	array  []int
-	logger *log.Logger
-	sorted []int
-)
+		logger *log.Logger
+	)
 
 func main() {
+var sorted []int
+
 	logger = log.New(os.Stderr, "goAndSort: ", 0)
 	options := parseArgs()
 	fmt.Println("This program will eventually sort an array using different algorithms and sizes")
 
-	array = make([]int, options.size)
+	array := make([]int, options.size)
 	randomizeArray(array)
 	fmt.Println("UNSORTED ARRAY")
 	printArray(array)

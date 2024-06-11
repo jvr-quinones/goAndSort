@@ -7,7 +7,7 @@ func BinarySeachRightmost(slice []int, val int) int {
 
 	for posLeft != posRight {
 		posMid := (posLeft + posRight) / 2
-		if sorted[posMid] > val {
+		if slice[posMid] > val {
 			posRight = posMid
 		} else {
 			posLeft = posMid + 1
@@ -24,7 +24,7 @@ func BinarySeachLeftmost(slice []int, val int) int {
 
 	for posLeft != posRight {
 		posMid := (posLeft + posRight) / 2
-		if sorted[posMid] > val {
+		if slice[posMid] > val {
 			posRight = posMid + 1
 		} else {
 			posLeft = posMid

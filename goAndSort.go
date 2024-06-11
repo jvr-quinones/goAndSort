@@ -54,6 +54,10 @@ func main() {
 		sorted = mergeSortIterative(array)
 	case "quick":
 		sorted = quickSortInPlace(array)
+	case "radix-sort-base2-lsd":
+		sorted = radixSortLSD(array, 2)
+	case "radix-sort-base10-lsd":
+		sorted = radixSortLSD(array, 10)
 	case "select":
 		sorted = selectSort(array)
 	case "select-stable":
@@ -96,6 +100,8 @@ func checkArgs(options *Options) {
 		"merge-iterative",
 		"merge-recursive",
 		"quick",
+		"radix-sort-base2-lsd",
+		"radix-sort-base10-lsd",
 		"select",
 		"select-stable",
 		"shaker",

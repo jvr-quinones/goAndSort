@@ -15,11 +15,11 @@ type Options struct {
 }
 
 var (
-		logger *log.Logger
-	)
+	logger *log.Logger
+)
 
 func main() {
-var sorted []int
+	var sorted []int
 
 	logger = log.New(os.Stderr, "goAndSort: ", 0)
 	options := parseArgs()
@@ -58,6 +58,8 @@ var sorted []int
 		sorted = radixSortLSD(array, 2)
 	case "radix-sort-base10-lsd":
 		sorted = radixSortLSD(array, 10)
+	case "radix-sort-base10-msd":
+		sorted = radixSortMSD(array, 10)
 	case "select":
 		sorted = selectSort(array)
 	case "select-stable":
@@ -78,8 +80,8 @@ var sorted []int
 
 func parseArgs() Options {
 	options := Options{}
-	flag.IntVar(&options.size, "size", 1e3, "Sample size")
-	flag.StringVar(&options.sorter, "sorter", "merge-iterative", "Sorting algorithm")
+	flag.IntVar(&options.size, "size", 10, "Sample size")
+	flag.StringVar(&options.sorter, "sorter", "radix-sort-base10-msd", "Sorting algorithm")
 	flag.Parse()
 	options.sorter = strings.ToLower(options.sorter)
 
@@ -102,6 +104,7 @@ func checkArgs(options *Options) {
 		"quick",
 		"radix-sort-base2-lsd",
 		"radix-sort-base10-lsd",
+		"radix-sort-base10-msd",
 		"select",
 		"select-stable",
 		"shaker",

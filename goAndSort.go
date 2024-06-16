@@ -80,8 +80,8 @@ func main() {
 
 func parseArgs() Options {
 	options := Options{}
-	flag.IntVar(&options.size, "size", 10, "Sample size")
-	flag.StringVar(&options.sorter, "sorter", "radix-sort-base10-msd", "Sorting algorithm")
+	flag.IntVar(&options.size, "size", 1e3, "Sample size")
+	flag.StringVar(&options.sorter, "sorter", "merge-iterative", "Sorting algorithm")
 	flag.Parse()
 	options.sorter = strings.ToLower(options.sorter)
 

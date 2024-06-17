@@ -2,16 +2,25 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"log"
 	"os"
 	"slices"
 	"strings"
+	"time"
 )
 
 type Options struct {
-	size   int
+	// Array size
+	size int
+
+	// Algorithm used
 	sorter string
+
+	// If true, print out in json format, print in csv format otherwise
+	json bool
+
+	// Print begin and end timestamps (in microseconds maybe)
+	timestamps bool
 }
 
 var (
@@ -19,69 +28,80 @@ var (
 )
 
 func main() {
-	var sorted []int
+	var (
+		timeStart int64
+		timeEnd   int64
+		sorted    []int
+	)
 
 	logger = log.New(os.Stderr, "goAndSort: ", 0)
 	options := parseArgs()
-	fmt.Println("This program will eventually sort an array using different algorithms and sizes")
 
-	array := make([]int, options.size)
-	randomizeArray(array)
-	fmt.Println("UNSORTED ARRAY")
-	printArray(array)
-	fmt.Println(strings.ToUpper(strings.ReplaceAll(options.sorter, "-", " ")), "SORT")
+	timeStart = time.Now().UnixMicro()
+	unsorted := make([]int, options.size)
+	randomizeArray(unsorted)
 
 	switch options.sorter {
 	case "binary-insert":
-		sorted = binaryInsertSort(array)
+		sorted = binaryInsertSort(unsorted)
 	case "bubble":
-		sorted = bubbleSort(array)
+		sorted = bubbleSort(unsorted)
 	case "counting":
-		sorted = countingSort(array)
+		sorted = countingSort(unsorted)
 	case "double-select":
-		sorted = doubleSelectSort(array)
+		sorted = doubleSelectSort(unsorted)
 	case "double-select-stable":
-		sorted = doubleSelectSortStable(array)
+		sorted = doubleSelectSortStable(unsorted)
 	case "exchange":
-		sorted = exchangeSort(array)
+		sorted = exchangeSort(unsorted)
 	case "heap":
-		sorted = heapSort(array)
+		sorted = heapSort(unsorted)
 	case "insert":
-		sorted = insertSort(array)
+		sorted = insertSort(unsorted)
 	case "merge-recursive":
-		sorted = mergeSortRecursive(array)
+		sorted = mergeSortRecursive(unsorted)
 	case "merge-iterative":
-		sorted = mergeSortIterative(array)
+		sorted = mergeSortIterative(unsorted)
 	case "quick":
-		sorted = quickSortInPlace(array)
+		sorted = quickSortInPlace(unsorted)
 	case "radix-sort-base2-lsd":
-		sorted = radixSortLSD(array, 2)
+		sorted = radixSortLSD(unsorted, 2)
 	case "radix-sort-base10-lsd":
-		sorted = radixSortLSD(array, 10)
+		sorted = radixSortLSD(unsorted, 10)
 	case "radix-sort-base10-msd":
-		sorted = radixSortMSD(array, 10)
+		sorted = radixSortMSD(unsorted, 10)
 	case "select":
-		sorted = selectSort(array)
+		sorted = selectSort(unsorted)
 	case "select-stable":
-		sorted = selectSortStable(array)
+		sorted = selectSortStable(unsorted)
 	case "shaker":
-		sorted = shakerSort(array)
+		sorted = shakerSort(unsorted)
 	default:
 		logger.Fatalf("No handler for sorter %q", options.sorter)
 	}
-	printArray(sorted)
 
-	isSorted := "no"
-	if slices.IsSorted(sorted) {
-		isSorted = "yes"
+	csvPrintArray(unsorted, sorted)
+	isSorted := slices.IsSorted(sorted)
+	timeEnd = time.Now().UnixMicro()
+
+	if options.timestamps {
+		logger.Printf("Start time: %v", timeStart)
+		logger.Printf("End time: %v", timeEnd)
 	}
-	fmt.Println("Is it sorted??", isSorted)
+
+	if isSorted && len(sorted) > 0 {
+		logger.Println("Array was sorted")
+	} else {
+		logger.Fatal("Array was not sorted")
+	}
 }
 
 func parseArgs() Options {
 	options := Options{}
 	flag.IntVar(&options.size, "size", 1e3, "Sample size")
 	flag.StringVar(&options.sorter, "sorter", "merge-iterative", "Sorting algorithm")
+	// flag.BoolVar(&options.json, "json", false, "If true, output is in json format, output is csv format otherwise")
+	flag.BoolVar(&options.timestamps, "timestamps", false, "Print the start and end timestamp in unix time")
 	flag.Parse()
 	options.sorter = strings.ToLower(options.sorter)
 

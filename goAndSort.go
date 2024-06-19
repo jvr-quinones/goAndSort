@@ -17,7 +17,7 @@ type Options struct {
 	sorter string
 
 	// If true, print out in json format, print in csv format otherwise
-	json bool
+	// json bool
 
 	// Print begin and end timestamps (in microseconds maybe)
 	timestamps bool
@@ -54,6 +54,8 @@ func main() {
 		sorted = doubleSelectSortStable(unsorted)
 	case "exchange":
 		sorted = exchangeSort(unsorted)
+	case "gnome":
+		sorted = gnomeSort(unsorted)
 	case "heap":
 		sorted = heapSort(unsorted)
 	case "insert":
@@ -63,7 +65,7 @@ func main() {
 	case "merge-iterative":
 		sorted = mergeSortIterative(unsorted)
 	case "quick":
-		sorted = quickSortInPlace(unsorted)
+		sorted = quickSort(unsorted)
 	case "radix-sort-base2-lsd":
 		sorted = radixSortLSD(unsorted, 2)
 	case "radix-sort-base10-lsd":
@@ -117,6 +119,7 @@ func checkArgs(options *Options) {
 		"double-select",
 		"double-select-stable",
 		"exchange",
+		"gnome",
 		"heap",
 		"insert",
 		"merge-iterative",

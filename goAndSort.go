@@ -48,6 +48,8 @@ func main() {
 		sorted = bubbleSort(unsorted)
 	case "counting":
 		sorted = countingSort(unsorted)
+	case "cycle":
+		sorted = cycleSort(unsorted)
 	case "double-select":
 		sorted = doubleSelectSort(unsorted)
 	case "double-select-stable":
@@ -116,6 +118,7 @@ func checkArgs(options *Options) {
 		"binary-insert",
 		"bubble",
 		"counting",
+		"cycle",
 		"double-select",
 		"double-select-stable",
 		"exchange",
